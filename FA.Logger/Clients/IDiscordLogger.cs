@@ -1,4 +1,4 @@
-﻿namespace Logger.Clients
+﻿namespace FA.Logger.Clients
 {
     public interface IDiscordLogger
     {
