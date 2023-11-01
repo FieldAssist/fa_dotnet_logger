@@ -1,6 +1,6 @@
 ﻿using System.Net.Http.Json;
 
-namespace Logger.Clients
+namespace FA.Logger.Clients
 {
     public class TelegramLogger : ITelegramLogger
     {

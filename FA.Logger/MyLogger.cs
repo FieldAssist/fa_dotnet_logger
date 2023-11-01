@@ -1,6 +1,6 @@
-﻿using Logger.Clients;
+﻿using FA.Logger.Clients;
 
-namespace Logger
+namespace FA.Logger
 {
     public class MyLogger
     {
