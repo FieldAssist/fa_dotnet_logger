@@ -1,4 +1,4 @@
-﻿using FA.Logger.Clients;
+﻿using FA.Logger.Providers.Base;
 
 namespace FA.Logger
 {

@@ -1,6 +1,7 @@
 ﻿using System.Net.Http.Json;
+using FA.Logger.Providers.Base;
 
-namespace FA.Logger.Clients
+namespace FA.Logger.Providers
 {
     public class TelegramNotifyProvider : INotifyProvider
     {

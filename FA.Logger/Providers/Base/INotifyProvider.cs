@@ -1,4 +1,4 @@
-﻿namespace FA.Logger.Clients
+﻿namespace FA.Logger.Providers.Base
 {
     public interface INotifyProvider
     {

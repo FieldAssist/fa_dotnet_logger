@@ -1,4 +1,6 @@
-﻿namespace FA.Logger.Clients
+﻿using FA.Logger.Providers.Base;
+
+namespace FA.Logger.Providers
 {
     public class DiscordMyLoggerProvider : IMyLoggerProvider
     {
