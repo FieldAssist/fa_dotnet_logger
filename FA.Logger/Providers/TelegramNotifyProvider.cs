@@ -2,13 +2,13 @@
 
 namespace FA.Logger.Clients
 {
-    public class TelegramLogger : ITelegramLogger
+    public class TelegramNotifyProvider : INotifyProvider
     {
         private readonly HttpClient _httpClient;
         private readonly string _botToken;
         private readonly string _groupId;
 
-        public TelegramLogger(string botToken, string groupId)
+        public TelegramNotifyProvider(string botToken, string groupId)
         {
             _botToken = botToken;
             _groupId = groupId;

@@ -2,13 +2,13 @@
 
 namespace FA.Logger
 {
-    public class MyLogger
+    public class MyLogger : IMyLogger
     {
-        private readonly IDiscordLogger _discordLogger;
+        private readonly IMyLoggerProvider _myLoggerProvider;
 
-        public MyLogger(IDiscordLogger discordLogger)
+        public MyLogger(IMyLoggerProvider myLoggerProvider)
         {
-            _discordLogger = discordLogger;
+            _myLoggerProvider = myLoggerProvider;
         }
 
         /// <summary>
@@ -20,7 +20,7 @@ namespace FA.Logger
         /// <param name="data">The string representing payload data</param>
         /// <param name="stackTrace"></param>
         /// <param name="subtitle">An optional subtitle to be logged</param>
-        public async Task CreateLog(Exception ex, string data = "", string? stackTrace = "", string? subtitle = null)
+        public async Task Log(Exception ex, string data = "", string? stackTrace = "", string? subtitle = null)
         {
             try
             {
@@ -58,12 +58,7 @@ namespace FA.Logger
                 finalMsg = $"{finalMsg}----StackTrace END----\n";
             }
 
-            await _discordLogger.SaveLog(finalMsg);
+            await _myLoggerProvider.SaveLog(finalMsg);
         }
-
-        //public async void LogToTelegram(string message)
-        //{
-        //    await _telegramLogger.Log(message);
-        //}
     }
 }

@@ -1,10 +1,10 @@
 ﻿namespace FA.Logger.Clients
 {
-    public class DiscordLogger : IDiscordLogger
+    public class DiscordMyLoggerProvider : IMyLoggerProvider
     {
         private readonly HttpClient _httpClient;
 
-        public DiscordLogger(HttpClient httpClient)
+        public DiscordMyLoggerProvider(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }

@@ -1,6 +1,6 @@
 ﻿namespace FA.Logger.Clients
 {
-    public interface IDiscordLogger
+    public interface IMyLoggerProvider
     {
         /// <summary>
         /// Logs to discord

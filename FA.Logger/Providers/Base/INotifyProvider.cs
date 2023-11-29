@@ -1,6 +1,6 @@
 ﻿namespace FA.Logger.Clients
 {
-    public interface ITelegramLogger
+    public interface INotifyProvider
     {
         /// <summary>
         /// Creates log and sends to telegram
