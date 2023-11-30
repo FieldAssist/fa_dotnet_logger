@@ -20,19 +20,11 @@ namespace FA.Logger
         {
             try
             {
-                if (_notifyProvider != null)
-                {
-                    await _notifyProvider.Log(message);
-                }
-                else
-                {
-                    throw new NullReferenceException();
-                }
+                await _notifyProvider.Log(message);
             }
             catch (Exception e)
             {
                 Console.Error.WriteLine(e);
-                throw;
             }
         }
     }

@@ -58,7 +58,7 @@ namespace FA.Logger
                 finalMsg = $"{finalMsg}----StackTrace END----\n";
             }
 
-            await _myLoggerProvider.SaveLog(finalMsg);
+            await _myLoggerProvider.Log(finalMsg);
         }
     }
 }
