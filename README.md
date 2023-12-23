@@ -18,7 +18,7 @@ services.AddHttpClient<IMyLoggerProvider, DiscordMyLoggerProvider>(c =>
 {
     c.BaseAddress = new Uri(context.Configuration.GetValue<string>("AuthSettings:DiscordURI"));
 });
-services.AddSingleton<MyLogger>(s => new MyLogger(s.GetRequiredService<IMyLoggerProvider>()));
+services.AddSingleton<IMyLogger>(s => new MyLogger(s.GetRequiredService<IMyLoggerProvider>()));
 ```
 
 ### Notifier
