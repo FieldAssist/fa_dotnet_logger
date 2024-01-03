@@ -16,7 +16,7 @@ namespace FA.Logger
         /// </summary>
         /// <param name="message"></param>
         /// <exception cref="NullReferenceException"></exception>
-        public async void Notify(string message)
+        public async Task Notify(string message)
         {
             try
             {

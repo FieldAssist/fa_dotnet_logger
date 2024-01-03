@@ -2,5 +2,5 @@
 
 public interface IMyNotifier
 {
-    public void Notify(string message);
+    public Task Notify(string message);
 }

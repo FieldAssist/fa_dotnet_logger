@@ -31,6 +31,7 @@ namespace FA.Logger.Providers
             var url = $"https://api.telegram.org/bot{_botToken}/sendMessage";
             var data = new { chat_id = _groupId, text = message };
             var responseMessage = await _httpClient.PostAsJsonAsync(url, data);
+            Console.WriteLine($"{await responseMessage.Content.ReadAsStringAsync()}");
             responseMessage.EnsureSuccessStatusCode();
         }
     }
