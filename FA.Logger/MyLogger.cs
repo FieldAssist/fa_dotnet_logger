@@ -1,14 +1,28 @@
-﻿using FA.Logger.Providers.Base;
+﻿using FA.Logger.Enum;
+using FA.Logger.Providers.Base;
 
 namespace FA.Logger
 {
     public class MyLogger : IMyLogger
     {
-        private readonly IMyLoggerProvider _myLoggerProvider;
+        private readonly IEnumerable<IMyLoggerProvider> _myLoggerProvider;
 
-        public MyLogger(IMyLoggerProvider myLoggerProvider)
+        public MyLogger(IEnumerable<IMyLoggerProvider> myLoggerProvider)
         {
             _myLoggerProvider = myLoggerProvider;
+        }
+
+        private async Task Log(string data = "", LogLevel logLevel = LogLevel.Information)
+        {
+            foreach (var logger in _myLoggerProvider)
+            {
+                await logger.Log(data, logLevel);
+            }
+        }
+
+        public async Task LogInfo(string data = "")
+        {
+            await Log(data, LogLevel.Information);
         }
 
         /// <summary>
@@ -20,7 +34,8 @@ namespace FA.Logger
         /// <param name="data">The string representing payload data</param>
         /// <param name="stackTrace"></param>
         /// <param name="subtitle">An optional subtitle to be logged</param>
-        public async Task Log(Exception ex, string data = "", string? stackTrace = "", string? subtitle = null)
+        public async Task LogException(Exception ex,
+            string data = "", string? stackTrace = "", string? subtitle = null)
         {
             try
             {
@@ -58,7 +73,7 @@ namespace FA.Logger
                 finalMsg = $"{finalMsg}----StackTrace END----\n";
             }
 
-            await _myLoggerProvider.Log(finalMsg);
+            await Log(finalMsg, LogLevel.Error);
         }
     }
 }

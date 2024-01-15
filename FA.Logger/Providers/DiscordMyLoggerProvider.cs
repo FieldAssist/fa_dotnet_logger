@@ -1,4 +1,5 @@
-﻿using FA.Logger.Providers.Base;
+﻿using FA.Logger.Enum;
+using FA.Logger.Providers.Base;
 
 namespace FA.Logger.Providers
 {
@@ -15,7 +16,7 @@ namespace FA.Logger.Providers
         /// Creates log and sends to discord
         /// </summary>
         /// <param name="message"></param>
-        public async Task Log(string message)
+        private async Task Log(string message)
         {
             // This is to trim top 2000. As there is limit on discord.
             if (message.Length > 1999)
@@ -26,6 +27,14 @@ namespace FA.Logger.Providers
             var content = new FormUrlEncodedContent(new[] { new KeyValuePair<string, string>("content", message) });
             var responseMessage = await _httpClient.PostAsync("", content);
             responseMessage.EnsureSuccessStatusCode();
+        }
+
+        public async Task Log(string message, LogLevel logLevel = LogLevel.Information)
+        {
+            if(logLevel>=LogLevel.Error)
+            {
+                await Log(message);
+            }
         }
     }
 }

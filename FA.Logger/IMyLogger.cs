@@ -2,5 +2,7 @@
 
 public interface IMyLogger
 {
-    public Task Log(Exception ex, string data = "", string? stackTrace = "", string? subtitle = null);
+    Task LogInfo(string data = "");
+    Task LogException(Exception ex,
+            string data = "", string? stackTrace = "", string? subtitle = null);
 }

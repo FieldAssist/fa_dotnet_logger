@@ -1,4 +1,6 @@
-﻿namespace FA.Logger.Providers.Base
+﻿using FA.Logger.Enum;
+
+namespace FA.Logger.Providers.Base
 {
     public interface IMyLoggerProvider
     {
@@ -7,6 +9,6 @@
         /// </summary>
         /// <param name="message"></param>
         /// <returns></returns>
-        Task Log(string message);
+        Task Log(string message, LogLevel logLevel = LogLevel.Information);
     }
 }
