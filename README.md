@@ -9,7 +9,11 @@ Official FA .NET logger package
 
 ## ❔ Usage
 
-### Logging
+### Logging (New)
+
+// TODO
+
+### Logging (Old)
 
 1. Discord Logger
 
@@ -19,17 +23,6 @@ services.AddHttpClient<IMyLoggerProvider, DiscordMyLoggerProvider>(c =>
     c.BaseAddress = new Uri(context.Configuration.GetValue<string>("AuthSettings:DiscordURI"));
 });
 services.AddSingleton<IMyLogger>(s => new MyLogger(s.GetRequiredService<IMyLoggerProvider>()));
-```
-
-### Notifier
-
-1. Telegram Provider
-
-```csharp
-serviceProvider.AddSingleton<IMyNotifier, MyNotifier>(s =>
-    new MyNotifier(new TelegramNotifyProvider(
-        botToken: configuration.GetValue<string>("AppSettings:TelegramBotToken"),
-        groupId: configuration.GetValue<string>("AppSettings:TelegramGroupId"))));
 ```
 
 ## 👍 Contribution

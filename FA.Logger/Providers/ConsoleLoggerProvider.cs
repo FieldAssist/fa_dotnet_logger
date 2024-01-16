@@ -5,9 +5,10 @@ namespace FA.Logger.Providers
 {
     public class ConsoleLoggerProvider : IMyLoggerProvider
     {
-        public async Task Log(string message, LogLevel logLevel = LogLevel.Information)
+        public Task Log(string message, LogLevel logLevel)
         {
             Console.WriteLine(message);
+            return Task.CompletedTask;
         }
     }
 }

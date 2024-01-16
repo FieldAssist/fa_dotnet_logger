@@ -3,13 +3,18 @@ using FA.Logger.Providers.Base;
 
 namespace FA.Logger.Providers
 {
-    public class DiscordMyLoggerProvider : IMyLoggerProvider
+    public class DiscordLoggerProvider : IMyLoggerProvider
     {
         private readonly HttpClient _httpClient;
 
-        public DiscordMyLoggerProvider(HttpClient httpClient)
+        public DiscordLoggerProvider(string webhookUrl)
         {
-            _httpClient = httpClient;
+            _httpClient = new HttpClient { BaseAddress = new Uri(webhookUrl) };
+        }
+
+        public DiscordLoggerProvider(string webhookUrl, HttpClient? httpClient)
+        {
+            _httpClient = httpClient ?? new HttpClient { BaseAddress = new Uri(webhookUrl) };
         }
 
         /// <summary>
@@ -29,9 +34,9 @@ namespace FA.Logger.Providers
             responseMessage.EnsureSuccessStatusCode();
         }
 
-        public async Task Log(string message, LogLevel logLevel = LogLevel.Information)
+        public async Task Log(string message, LogLevel logLevel)
         {
-            if(logLevel>=LogLevel.Error)
+            if (logLevel >= LogLevel.Error)
             {
                 await Log(message);
             }

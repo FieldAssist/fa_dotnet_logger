@@ -1,15 +1,16 @@
 ﻿using System.Net.Http.Json;
+using FA.Logger.Enum;
 using FA.Logger.Providers.Base;
 
 namespace FA.Logger.Providers
 {
-    public class TelegramNotifyProvider : INotifyProvider
+    public class TelegramLoggerProvider : IMyLoggerProvider
     {
         private readonly HttpClient _httpClient;
         private readonly string _botToken;
         private readonly string _groupId;
 
-        public TelegramNotifyProvider(string botToken, string groupId)
+        public TelegramLoggerProvider(string botToken, string groupId)
         {
             _botToken = botToken;
             _groupId = groupId;
@@ -20,7 +21,7 @@ namespace FA.Logger.Providers
         /// Sends message to telegram
         /// </summary>
         /// <param name="message"></param>
-        public async Task Log(string message)
+        private async Task _Log(string message)
         {
             // This is to trim top 2000. As there is limit on discord.
             if (message.Length > 1999)
@@ -33,6 +34,14 @@ namespace FA.Logger.Providers
             var responseMessage = await _httpClient.PostAsJsonAsync(url, data);
             Console.WriteLine($"{await responseMessage.Content.ReadAsStringAsync()}");
             responseMessage.EnsureSuccessStatusCode();
+        }
+
+        public async Task Log(string message, LogLevel logLevel)
+        {
+            if (logLevel == LogLevel.Notify)
+            {
+                await _Log(message);
+            }
         }
     }
 }

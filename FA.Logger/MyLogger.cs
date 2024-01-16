@@ -20,6 +20,10 @@ namespace FA.Logger
             }
         }
 
+        /// <summary>
+        /// Logs information level messages with optional data.
+        /// </summary>
+        /// <param name="data"></param>
         public async Task LogInfo(string data = "")
         {
             await Log(data, LogLevel.Information);
@@ -39,7 +43,7 @@ namespace FA.Logger
         {
             try
             {
-                await LogToDiscord(ex, data, stackTrace ?? "", subtitle);
+                await _LogError(ex, data, stackTrace ?? "", subtitle);
             }
             catch (Exception e)
             {
@@ -47,7 +51,7 @@ namespace FA.Logger
             }
         }
 
-        private async Task LogToDiscord(Exception ex, string data, string? stackTrace, string? subtitle)
+        private async Task _LogError(Exception ex, string data, string? stackTrace, string? subtitle)
         {
             var msg = ex.GetBaseException().Message;
 
