@@ -79,5 +79,10 @@ namespace FA.Logger
 
             await Log(finalMsg, LogLevel.Error);
         }
+
+        public async Task LogNotification(string data = "")
+        {
+            await Log(data, LogLevel.Notify);
+        }
     }
 }
