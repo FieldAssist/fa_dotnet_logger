@@ -39,11 +39,11 @@ namespace FA.Logger
         /// <param name="stackTrace"></param>
         /// <param name="subtitle">An optional subtitle to be logged</param>
         public async Task LogException(Exception ex,
-            string data = "", string? stackTrace = "", string? subtitle = null)
+            string data = "", string? stackTrace = null, string? subtitle = null)
         {
             try
             {
-                await _LogError(ex, data, stackTrace ?? "", subtitle);
+                await _LogError(ex, data, stackTrace ?? ex.StackTrace, subtitle);
             }
             catch (Exception e)
             {
