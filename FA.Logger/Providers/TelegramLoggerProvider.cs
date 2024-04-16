@@ -43,5 +43,10 @@ namespace FA.Logger.Providers
                 await _Log(message);
             }
         }
+
+        public async Task Notify(string message)
+        {
+            await _Log(message);
+        }
     }
 }
