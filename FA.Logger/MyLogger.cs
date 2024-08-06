@@ -65,16 +65,14 @@ namespace FA.Logger
                     finalMsg = $"{finalMsg}{subtitle}\n";
                 }
 
-                finalMsg = $"{finalMsg}\n----Payload START----\n";
-                finalMsg = $"{finalMsg}{data}\n";
-                finalMsg = $"{finalMsg}----Payload END----\n";
+                finalMsg = $"{finalMsg}\n**Payload**\n";
+                finalMsg = $"```{finalMsg}{data}\n```";
             }
 
             if (stackTrace != "")
             {
-                finalMsg = $"{finalMsg}\n----StackTrace START----\n";
-                finalMsg = $"{finalMsg}{stackTrace}\n";
-                finalMsg = $"{finalMsg}----StackTrace END----\n";
+                finalMsg = $"{finalMsg}\n**StackTrace**\n";
+                finalMsg = $"```{finalMsg}{stackTrace}\n```";
             }
 
             await Log(finalMsg, LogLevel.Error);
