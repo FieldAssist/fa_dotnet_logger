@@ -66,13 +66,19 @@ namespace FA.Logger
                 }
 
                 finalMsg = $"{finalMsg}\n**Payload**\n";
-                finalMsg = $"```{finalMsg}{data}\n```";
+                finalMsg = $"{finalMsg}```{data}```\n";
             }
 
             if (stackTrace != "")
             {
                 finalMsg = $"{finalMsg}\n**StackTrace**\n";
-                finalMsg = $"```{finalMsg}{stackTrace}\n```";
+
+                if (stackTrace?.Length > 1000)
+                {
+                    stackTrace = stackTrace.Substring(0, 1000);
+                }
+
+                finalMsg = $"{finalMsg}```{stackTrace}```\n";
             }
 
             await Log(finalMsg, LogLevel.Error);
