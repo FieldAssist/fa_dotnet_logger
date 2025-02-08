@@ -43,7 +43,7 @@ namespace FA.Logger.Providers
 
         public async Task Log(string message, LogLevel logLevel)
         {
-            if (logLevel == LogLevel.Notify)
+            if (logLevel >= LogLevel.Error)
             {
                 await _Log(message);
             }
