@@ -274,3 +274,8 @@ csharp_space_between_square_brackets = false
 csharp_prefer_braces = true:silent
 csharp_preserve_single_line_blocks = true
 csharp_preserve_single_line_statements = true
+
+# IDisposableAnalyzers rules
+
+# IDISP001: Dispose Created
+dotnet_diagnostic.IDISP001.severity = error

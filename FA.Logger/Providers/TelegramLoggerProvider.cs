@@ -6,7 +6,9 @@ namespace FA.Logger.Providers
 {
     public class TelegramLoggerProvider : IMyLoggerProvider
     {
+#pragma warning disable IDISP006 // Implement IDisposable - The Log provider is used as singleton, so it is fine.
         private readonly HttpClient _httpClient;
+#pragma warning restore IDISP006 // Implement IDisposable
         private readonly string _botToken;
         private readonly string _groupId;
 
@@ -23,7 +25,7 @@ namespace FA.Logger.Providers
         /// <param name="message"></param>
         private async Task _Log(string message)
         {
-            // This is to trim top 2000. As there is limit on discord.
+            // This is to trim top 2000. As there is limit on telegram.
             if (message.Length > 1999)
             {
                 message = message.Substring(0, 1998);
@@ -31,7 +33,7 @@ namespace FA.Logger.Providers
 
             var url = $"https://api.telegram.org/bot{_botToken}/sendMessage";
             var data = new { chat_id = _groupId, text = message };
-            var responseMessage = await _httpClient.PostAsJsonAsync(url, data);
+            using var responseMessage = await _httpClient.PostAsJsonAsync(url, data);
             Console.WriteLine($"{await responseMessage.Content.ReadAsStringAsync()}");
             responseMessage.EnsureSuccessStatusCode();
         }

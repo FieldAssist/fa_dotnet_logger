@@ -5,7 +5,9 @@ namespace FA.Logger.Providers
 {
     public class DiscordLoggerProvider : IMyLoggerProvider
     {
+#pragma warning disable IDISP008 // Don't assign member with injected and created disposables - The Log provider is used as singleton, so it is fine.
         private readonly HttpClient _httpClient;
+#pragma warning restore IDISP008 // Don't assign member with injected and created disposables
 
         public DiscordLoggerProvider(string webhookUrl)
         {
@@ -29,8 +31,8 @@ namespace FA.Logger.Providers
                 message = message.Substring(0, 1998);
             }
 
-            var content = new FormUrlEncodedContent(new[] { new KeyValuePair<string, string>("content", message) });
-            var responseMessage = await _httpClient.PostAsync("", content);
+            using var content = new FormUrlEncodedContent(new[] { new KeyValuePair<string, string>("content", message) });
+            using var responseMessage = await _httpClient.PostAsync("", content);
             responseMessage.EnsureSuccessStatusCode();
         }
 
