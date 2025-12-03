@@ -7,37 +7,37 @@ namespace FA.Logger.Providers
     public class SlackLoggerProvider : IMyLoggerProvider
     {
         private readonly string _webhookUrl;
+#pragma warning disable IDISP006 // Implement IDisposable - The Log provider is used as singleton, so it is fine.
+        private readonly HttpClient _httpClient;
+#pragma warning restore IDISP006 // Implement IDisposable
 
         public SlackLoggerProvider(string webhookUrl)
         {
             _webhookUrl = webhookUrl;
+            _httpClient = new HttpClient();
         }
 
         public async Task _Log(string message)
         {
-            using (var client = new HttpClient())
+            try
             {
-                try
+                var payload = new
                 {
-                    var payload = new
-                    {
-                        text = message
-                    };
+                    text = message
+                };
 
-                    var jsonPayload = System.Text.Json.JsonSerializer.Serialize(payload);
-                    var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
+                var jsonPayload = System.Text.Json.JsonSerializer.Serialize(payload);
+                using var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
+                using var response = await _httpClient.PostAsync(_webhookUrl, content);
+                response.EnsureSuccessStatusCode();
 
-                    var response = await client.PostAsync(_webhookUrl, content);
-                    response.EnsureSuccessStatusCode();
-
-                    // Log or handle the response if needed
-                    var responseString = await response.Content.ReadAsStringAsync();
-                }
-                catch (Exception ex)
-                {
-                    // Handle the exception
-                    Console.Error.WriteLine($"Error sending notification: {ex.Message}");
-                }
+                // Log or handle the response if needed
+                var responseString = await response.Content.ReadAsStringAsync();
+            }
+            catch (Exception ex)
+            {
+                // Handle the exception
+                Console.Error.WriteLine($"Error sending notification: {ex.Message}");
             }
         }
 
