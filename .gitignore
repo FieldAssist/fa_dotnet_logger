@@ -3,3 +3,11 @@ obj/
 /packages/
 riderModule.iml
 /_ReSharper.Caches/
+
+# Visual Studio Code
+
+# Vs Code C# Dev Kit
+*.lscache
+temp_auto_push.bat
+temp_interactive_push.bat
+.gitignore
